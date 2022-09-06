@@ -57,6 +57,7 @@
     "@storybook/addon-essentials": "^6.5.10",
     "@storybook/addon-interactions": "^6.5.10",
     "@storybook/addon-links": "^6.5.10",
+    "@storybook/addon-storyshots": "^6.5.10",
     "@storybook/builder-webpack5": "^6.5.10",
     "@storybook/cli": "^6.5.10",
     "@storybook/manager-webpack5": "^6.5.10",
@@ -66,6 +67,7 @@
     "@storybook/testing-library": "^0.0.13",
     "babel-plugin-named-exports-order": "^0.0.2",
     "prop-types": "^15.8.1",
+    "react-test-renderer": "^18.2.0",
     "webpack": "^5.74.0"
   }
 }
