@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import Task from "./Task";
+import Task, { TaskItemProps } from "./Task";
 
 export default {
   title: "components/Task",
@@ -23,19 +23,15 @@ Default.args = {
 export const Pinned = Template.bind({});
 Pinned.args = {
   task: {
-    id: "1",
-    title: "Test Task",
+    ...(Default.args.task as TaskItemProps),
     state: "TASK_PINNED",
-    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 
 export const Archived = Template.bind({});
 Archived.args = {
   task: {
-    id: "1",
-    title: "Test Task",
+    ...(Default.args.task as TaskItemProps),
     state: "TASK_ARCHIVED",
-    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };

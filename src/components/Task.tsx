@@ -1,16 +1,19 @@
 import React from "react";
 
+export interface TaskItemProps {
+  /** Id of the task */
+  id: string;
+  /** Title of the task */
+  title: string;
+  /** Current state of the task */
+  state: string;
+  /** updated date of the task */
+  updatedAt?: Date;
+}
+
 interface TaskProps {
   /** Composition of the task */
-  task: {
-    /** Id of the task */
-    id: string;
-    /** Title of the task */
-    title: string;
-    /** Current state of the task */
-    state: string;
-    updatedAt: Date;
-  };
+  task: TaskItemProps;
   /** Event to change the task to archived */
   onArchiveTask: (_id: string) => void;
   /** Event to change the task to pinned */
