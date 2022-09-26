@@ -1,23 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { TaskItemProps } from "./Task";
+import { TaskItemProps } from "../lib/store";
 import TaskList from "./TaskList";
 
-export default {
-  component: TaskList,
-  title: "components/TaskList",
-  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
-} as ComponentMeta<typeof TaskList>;
+import { Provider } from "react-redux";
 
-const Template: ComponentStory<typeof TaskList> = (args) => (
-  <TaskList {...args} />
-);
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { TaskBoxState } from "../lib/store";
 
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in Task.stories.js.
+// A super-simple mock of the state of the store
+export const MockedState: TaskBoxState = {
   tasks: [
     {
       id: "1",
@@ -56,28 +49,100 @@ Default.args = {
       updatedAt: new Date(2021, 0, 1, 9, 0),
     },
   ],
+  status: "idle",
+  error: null,
 };
+
+// A super-simple mock of a redux store
+const Mockstore = ({
+  taskboxState,
+  children,
+}: {
+  taskboxState: TaskBoxState;
+  children: ReactNode;
+}) => (
+  <Provider
+    store={configureStore({
+      reducer: {
+        taskbox: createSlice({
+          name: "taskbox",
+          initialState: taskboxState,
+          reducers: {
+            updateTaskState: (state, action) => {
+              const { id, newTaskState } = action.payload;
+              const task = state.tasks.findIndex((task) => task.id === id);
+              if (task >= 0) {
+                state.tasks[task].state = newTaskState;
+              }
+            },
+          },
+        }).reducer,
+      },
+    })}
+  >
+    {children}
+  </Provider>
+);
+
+export default {
+  component: TaskList,
+  title: "components/TaskList",
+  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  excludeStories: /.*MockedState$/,
+} as ComponentMeta<typeof TaskList>;
+
+const Template: ComponentStory<typeof TaskList> = () => <TaskList />;
+
+export const Default = Template.bind({});
+Default.decorators = [
+  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+];
 
 export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...(Default.args.tasks as TaskItemProps[]).slice(0, 5),
-    { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
-  ],
-};
+WithPinnedTasks.decorators = [
+  (story) => {
+    const pinnedtasks: TaskItemProps[] = [
+      ...MockedState.tasks.slice(0, 5),
+      { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
+    ];
+
+    return (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: pinnedtasks,
+        }}
+      >
+        {story()}
+      </Mockstore>
+    );
+  },
+];
 
 export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
-};
+Loading.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        status: "loading",
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
 
 export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
-};
+Empty.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        tasks: [],
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
