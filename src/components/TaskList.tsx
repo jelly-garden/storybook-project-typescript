@@ -2,7 +2,7 @@ import React from "react";
 
 import Task from "./Task";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState, updateTaskState } from "../lib/store";
+import { RootState, AppDispatch, updateTaskState } from "../lib/store";
 
 export default function TaskList() {
   // We're retrieving our state from the store
@@ -19,7 +19,7 @@ export default function TaskList() {
 
   const { status } = useSelector((state: RootState) => state.taskbox);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const pinTask = (value: string) => {
     // We're dispatching the Pinned event back to our store

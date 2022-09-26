@@ -5,8 +5,8 @@ import Task from "./Task";
 import { TaskItemProps } from "../lib/store";
 
 export default {
-  title: "components/Task",
   component: Task,
+  title: "components/Task",
 } as ComponentMeta<typeof Task>;
 
 const Template: ComponentStory<typeof Task> = (args) => <Task {...args} />;
