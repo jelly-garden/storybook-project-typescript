@@ -10,14 +10,12 @@ export interface TaskItemProps {
   title: string;
   /** Current state of the task */
   state: "TASK_INBOX" | "TASK_PINNED" | "TASK_ARCHIVED";
-  /** updated date of the task */
-  updatedAt?: Date;
 }
 
 export interface TaskBoxState {
-  tasks: TaskItemProps[],
-  status: "idle" | "loading",
-  error: any
+  tasks: TaskItemProps[];
+  status: "idle" | "loading";
+  error: any;
 }
 
 /*
