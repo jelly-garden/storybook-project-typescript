@@ -1,15 +1,6 @@
 import React from "react";
 
-export interface TaskItemProps {
-  /** Id of the task */
-  id: string;
-  /** Title of the task */
-  title: string;
-  /** Current state of the task */
-  state: string;
-  /** updated date of the task */
-  updatedAt?: Date;
-}
+import { TaskItemProps } from "../lib/store";
 
 interface TaskProps {
   /** Composition of the task */

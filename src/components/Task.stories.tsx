@@ -1,7 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import Task, { TaskItemProps } from "./Task";
+import Task from "./Task";
+import { TaskItemProps } from "../lib/store";
 
 export default {
   title: "components/Task",
