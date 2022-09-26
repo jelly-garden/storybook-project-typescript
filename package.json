@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jelly-garden/storybook-project-typescript.git"
+    "url": "git+https://github.com/jelly-garden/storybook-project-typescript.git"
   },
   "private": true,
   "dependencies": {
@@ -24,7 +24,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=88adfed8070b"
   },
   "eslintConfig": {
     "extends": [
@@ -73,6 +74,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.10.0",
     "msw": "^0.47.3",
     "msw-storybook-addon": "^1.6.3",
     "prop-types": "^15.8.1",
@@ -81,5 +83,11 @@
   },
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/jelly-garden/storybook-project-typescript/issues"
+  },
+  "readme": "ERROR: No README data found!",
+  "homepage": "https://github.com/jelly-garden/storybook-project-typescript#readme",
+  "_id": "storybook-project-typescript@0.1.0"
 }
